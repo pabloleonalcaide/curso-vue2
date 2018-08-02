@@ -1,36 +1,108 @@
 <!<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Curso Vue2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./js/main.js"></script>
+    <style>
+        .like{
+            background:green;
+            color:white;
+            padding: 2px;
+        }
+    </style>
 </head>
+
 <body>
-    <main><!-- Vue container-->
+    <main>
+        <!-- Vue container-->
         <!-- Interpolation-->
-        <h1>{{text}}</h1> 
-        <h2 v-text="text"></h2>
-        <hr><!--use of two way data-binding with v-model (reactivity)-->
-        <input type="text" v-model="name">
-        <p>Nombre: {{name}}</p>
-        <input type="text" v-model="note">
-        <hr><!-- Conditionals -->
-        <strong v-if="note && note >=5 && note != 10">Estás aprobado!</strong>
-        <p v-else-if="note && note == 10">Eres un crack!  </p>
-        <span v-else>Has suspendido</span>
-        <hr><!-- Loops v-for -->
-        <ul><h2> Listado de superheroes</h2>
-            <li v-for="superheroe in superheroes">{{superheroe}}</li>
-        </ul>
-        <hr>
-        <ul><h2> Listado de objetos fruta</h2>
-            <li v-for="(fruit, index) in fruits">
-                {{index}}: {{fruit.name}} - {{fruit.season}}
+        <div id="interpolation">
+            <h1>{{text}}</h1>
+            <h2 v-text="text"></h2>
+            <hr>
+            <!--use of two way data-binding with v-model (reactivity)-->
+            <input type="text" v-model="name">
+            <p>Nombre: {{name}}</p>
+        </div>
+        <div id="conditionals">
+            <hr>
+            <!-- Conditionals -->
+            <input type="text" v-model="note">
+            <strong v-if="note && note >=5 && note != 10">Estás aprobado!</strong>
+            <p v-else-if="note && note == 10">Eres un crack! </p>
+            <span v-else>Has suspendido</span>
+        </div>
+        <div id="loops">
+            <hr>
+            <!-- Loops v-for -->
+            <ul>
+                <h2> Listado de superheroes (Array)</h2>
+                <li v-for="hero in superheroes">{{hero}}</li>
+            </ul>
+            <ul>
+                <h2> Listado de objetos fruta (Array de objetos)</h2>
+                <p>Haz click en los elementos</p>
+                <!-- v-bind bind the class like when the index is equal to property 'confirm'-->
+                <li @click="mark(index)" v-bind:class="{like: index==confirm}" v-for="(fruit, index) in fruits">
+                    {{index}}: {{fruit.name}} - {{fruit.season}}
+                </li>
+            </ul>
+           <ul> <h3> Fruta especial (Objeto)</h3>
+            <li v-for="(value,key, index) in special_fruit">
+                {{index}}: {{key}} : {{value}}
             </li>
         </ul>
-    </main>
+        </div>
+        <div id="events">
+            <hr>
+            <h2>Añadiendo heroes</h2>
+            <ul>
+                <li v-for="(hero,index) in superheroes">{{hero}}             
+                    <button @click="remove_hero(index)">Borrar</button>
+                </li>
+            </ul>
+            <form @submit.prevent="add_hero()">
+                <input type="text" v-model="newHero">
+                <input type="submit" value="Añadir heroe">
+            </form>
+        </div>
+        <hr>
+        <div id="computed_props">
+            <h2>Propiedades computadas</h2>
+            <p>{{nameAndSurname}}</p>
+            <h3>Lista ordenada con propiedad computada</h3>
+            <ul>
+                <li v-for="hero in orderedHeroes">{{hero}}</li>
+            </ul>
+        </div>
+        <hr>
+        <!-- Filters -->
+        <div id="filter">
+            <input type="search" v-model="search" placeholder="buscar fruta">
+            <ul>
+                <li v-for="(fruit, index) in searchFruit">{{fruit.name | uppercase}}</li>
+            </ul>
+        </div>
+        <hr>
+        <div id="axios">
+            <h2>Usando Axios - Listado</h2>
+            <ul v-if="posts">
+                <li v-for="(post, index) in posts">{{post.title}}</li>
+            </ul>
+            <span v-else>Cargando Listado por Ajax</span>
+        </div>
+    </main> <!-- End Vue Container -->
+    <!-- second instance of vue -->
+    <hr>
+    <div id="app">
+            <h2>{{text}}</h2>
+    </div>
 </body>
+
 </html>
