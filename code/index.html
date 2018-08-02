@@ -6,9 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Curso Vue2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="./js/main.js"></script>
     <style>
         .like{
             background:green;
@@ -93,9 +90,14 @@
         <div id="axios">
             <h2>Usando Axios - Listado</h2>
             <ul v-if="posts">
-                <li v-for="(post, index) in posts">{{post.title}}</li>
+                <li v-for="(post, index) in posts">{{post.name}}</li>
             </ul>
             <span v-else>Cargando Listado por Ajax</span>
+        </div>
+        <hr>
+        <div id="component">
+            <films></films>
+            <fruits></fruits>
         </div>
     </main> <!-- End Vue Container -->
     <!-- second instance of vue -->
@@ -103,6 +105,9 @@
     <div id="app">
             <h2>{{text}}</h2>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

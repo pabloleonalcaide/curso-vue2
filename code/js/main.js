@@ -1,10 +1,27 @@
-window.onload = function() {
+    Vue.component('films',{
+        template: `
+            <h1> Componente Películas </h1>
+        `
+    });
+    Vue.component('fruits',{
+        template: `
+            <h2> Componente {{title}} </h2>
+        `,
+        mounted(){
+            //whatever we need, like with Vue Instances
+        },
+        data(){
+            return{
+                title: 'Frutas',
+            }
+        }
+    });
     Vue.filter('uppercase', (value)=>value.toUpperCase());
     new Vue({
     el: "main",
     /**Mounted is like $(document).ready */
     mounted(){
-        axios.get('https://jsonplaceholder.typicode.com/posts').then((response)=>{
+        axios.get('https://jsonplaceholder.typicode.com/users').then((response)=>{
             this.posts = response.data;
         });
     },
@@ -61,4 +78,4 @@ window.onload = function() {
         text: 'Segunda instancia de Vue'
     }
   });
-};
+ 
