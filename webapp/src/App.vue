@@ -6,9 +6,11 @@
     <ul>
       <li><router-link to="/">Home</router-link></li>
       <li><router-link to="/restaurants">Restaurantes</router-link></li>
+      <li><router-link to="/add-restaurant">Añadir Restaurante</router-link></li>
       <li><router-link :to="{name:'destacado',params:{id: 16}}">Destacado</router-link></li>
       <li><router-link to="/contact">Contacto</router-link></li>
     </ul>
+    <hr>
     <!-- This view will change with the route -->
     <router-view></router-view>
   </div>
