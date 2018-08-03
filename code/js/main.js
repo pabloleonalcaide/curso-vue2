@@ -1,20 +1,47 @@
     Vue.component('films',{
         template: `
             <h1> Componente Películas </h1>
-        `
-    });
-    Vue.component('fruits',{
-        template: `
-            <h2> Componente {{title}} </h2>
         `,
         mounted(){
             //whatever we need, like with Vue Instances
-        },
+        }
+    });
+    Vue.component('fruits',{
+        props: ['object'],
+        template: `
+            <div>
+                <hr>
+                <h2> Componente {{title}} </h2>
+                <h4> La fruta especial es: {{object.name}}</h4>
+            </div>
+        `,
+        mounted(){console.log(this.objecto)},  
         data(){
             return{
                 title: 'Frutas',
             }
         }
+    });
+    Vue.component('inline',{
+        props: ['object'],
+        mounted(){},  
+        data(){
+            return{
+                title: 'Frutas',
+            }
+        }
+    });
+    Vue.component('father',{
+        template: `
+            <div><h1> Componente Padre</h1>
+                <div>
+                    <child></child>
+                </div>
+            </div>
+        `
+    });
+    Vue.component('child',{
+        template: `<p style="background:teal;"> Párrafo del componente hijo </p>`
     });
     Vue.filter('uppercase', (value)=>value.toUpperCase());
     new Vue({
@@ -26,6 +53,7 @@
         });
     },
     data: {
+      choosenComponent: 'films',
       posts: null,
       text: "Hello from Vue2",
       name: "Pablo",

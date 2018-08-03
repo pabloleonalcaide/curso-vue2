@@ -6,18 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Curso Vue2</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        .like{
-            background:green;
-            color:white;
-            padding: 2px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="./style/main.css">
 </head>
 
 <body>
+    <!-- Vue container-->
     <main>
-        <!-- Vue container-->
         <!-- Interpolation-->
         <div id="interpolation">
             <h1>{{text}}</h1>
@@ -50,17 +44,18 @@
                     {{index}}: {{fruit.name}} - {{fruit.season}}
                 </li>
             </ul>
-           <ul> <h3> Fruta especial (Objeto)</h3>
-            <li v-for="(value,key, index) in special_fruit">
-                {{index}}: {{key}} : {{value}}
-            </li>
-        </ul>
+            <ul>
+                <h3> Fruta especial (Objeto)</h3>
+                <li v-for="(value,key, index) in special_fruit">
+                    {{index}}: {{key}} : {{value}}
+                </li>
+            </ul>
         </div>
         <div id="events">
             <hr>
             <h2>Añadiendo heroes</h2>
             <ul>
-                <li v-for="(hero,index) in superheroes">{{hero}}             
+                <li v-for="(hero,index) in superheroes">{{hero}}
                     <button @click="remove_hero(index)">Borrar</button>
                 </li>
             </ul>
@@ -69,8 +64,9 @@
                 <input type="submit" value="Añadir heroe">
             </form>
         </div>
-        <hr>
+
         <div id="computed_props">
+            <hr>
             <h2>Propiedades computadas</h2>
             <p>{{nameAndSurname}}</p>
             <h3>Lista ordenada con propiedad computada</h3>
@@ -78,32 +74,58 @@
                 <li v-for="hero in orderedHeroes">{{hero}}</li>
             </ul>
         </div>
-        <hr>
+
         <!-- Filters -->
         <div id="filter">
+            <hr>
             <input type="search" v-model="search" placeholder="buscar fruta">
             <ul>
                 <li v-for="(fruit, index) in searchFruit">{{fruit.name | uppercase}}</li>
             </ul>
         </div>
-        <hr>
+
         <div id="axios">
+            <hr>
             <h2>Usando Axios - Listado</h2>
             <ul v-if="posts">
                 <li v-for="(post, index) in posts">{{post.name}}</li>
             </ul>
             <span v-else>Cargando Listado por Ajax</span>
         </div>
-        <hr>
-        <div id="component">
+
+        <div id="components">
+            <hr>
+            <!-- Simple components-->
             <films></films>
-            <fruits></fruits>
+            <!-- The component receive an object from outside-->
+            <fruits :object="special_fruit"></fruits>
+            <hr>
+            <p>Componente en Línea --></p>
+            <inline :object="special_fruit" inline-template>
+                    <div> <!-- The inline template component only have one child-->
+                    <h2> Componente {{title}} </h2>
+                    <h4> La fruta especial es: {{object.name}}</h4>
+                    </div>
+            </inline>   
         </div>
-    </main> <!-- End Vue Container -->
+        <div id="childs-components">
+            <hr>
+            <!-- using components inside other component-->
+            <father></father>
+        </div>
+        <div id="dinamic-components"> <!-- Dinamic Components-->
+            <hr> <!-- :is to select the component-->
+            <h1><u>Componentes dinámicos</u></h1>
+             <button @click="choosenComponent = 'films'">Cargar películas</button>
+             <button @click="choosenComponent = 'father'">Cargar padre</button>
+             <component :is="choosenComponent"></component>
+        </div>
+    </main>
+    <!-- End Vue Container -->
     <!-- second instance of vue -->
     <hr>
     <div id="app">
-            <h2>{{text}}</h2>
+        <h2>{{text}}</h2>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
